@@ -70,8 +70,8 @@
 {
     cols.Add(col => col.Author).Titled("Author").Sortable(true).SetWidth(80);
     cols.Add(col => col.Quote).Titled("Quote").SetWidth(350);
-    cols.Add(col => col.Category.Name).Titled("Category").SetWidth(100);
-    cols.Add(col => col.DateAdded).Titled("Date Added").SetWidth(250);
+    cols.Add(col => col.Category.Name).Titled("Category").Sortable(true).SetWidth(100);
+    cols.Add(col => col.DateAdded).Titled("Date Added").Sortable(true).SetWidth(250);
     
     
     //cols.Add(col => col.Quote).Titled("Quote").SetWidth(250).RenderValueAs(a => Truncate(a.Quote, 35)).Encoded(false);
