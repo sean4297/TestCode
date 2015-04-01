@@ -89,35 +89,35 @@ namespace QuotationAppV1.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "QuotationID,CategoryID,Quote,Author,DateAdded")] Quotation quotation, String Name)
         {
-            Category newCategory = new Category();
+            Category c1 = new Category();
             //s.Category.Name.Contains(searchString)
             if (!String.IsNullOrEmpty(Name))
             {
-                int intId;
-                int[] categoryArray = db.Categories.Where(c => c.Name == Name).Select(c => c.CategoryID).ToArray();
-                if (categoryArray.Count() > 0)
+
+                int ID1;
+                int[] arr = db.Categories.Where(s => s.Name == Name).Select(s => s.CategoryID).ToArray();
+
+                if (arr.Count() > 0)
                 {
-                    intId = categoryArray[0];
+                    ID1 = arr[0];
                 }
                 else
                 {
-                    newCategory.Name = Name;
-                    db.Categories.Add(newCategory);
-                    intId = newCategory.CategoryID;
+                    c1.Name = Name;
+                    db.Categories.Add(c1);
+                    ID1 = c1.CategoryID;
                 }
 
-                newCategory = db.Categories.Find(intId);
-                quotation.CategoryID = newCategory.CategoryID;
+                c1 = db.Categories.Find(ID1);
+                quotation.CategoryID = c1.CategoryID;
             }
 
             if (ModelState.IsValid)
             {
-
                 quotation.DateAdded = DateTime.Now;
                 db.Quotations.Add(quotation);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-
             }
 
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", quotation.CategoryID);
