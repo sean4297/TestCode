@@ -1,18 +1,6 @@
 ﻿@model IEnumerable<QuotationAppV1.Models.Quotation>
 @using GridMvc.Html
 
-@helper Truncate(string value, int length)
-{
-    if (value.Length <= length)
-    {
-        @value
-    }
-    else
-    {
-        @value.Substring(0, length)<span>...</span>
-    }
-}
-
 @{
     ViewBag.Title = "Index";
 }
@@ -20,69 +8,30 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success btn-xs" })
 </p>
 
-@*<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quote)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </th>
-        <th></th>
-    </tr>
+@using (Html.BeginForm())
+{
+    
+        <input type="submit" value="Search" class="btn btn-success btn-xs" /> @Html.TextBox("searchString") 
+        if(ViewBag.switch1){ 
+            @Html.ActionLink("Clear", "Index", null, new { @class = "btn btn-success btn-xs" })
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quote)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateAdded)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.QuotationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.QuotationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.QuotationID })
-        </td>
-    </tr>
 }
-
-</table>*@
-
 
 
 @Html.Grid(Model).Columns(cols =>
-{
-    cols.Add(col => col.Author).Titled("Author").Sortable(true).SetWidth(80);
-    cols.Add(col => col.Quote).Titled("Quote").SetWidth(350);
-    cols.Add(col => col.Category.Name).Titled("Category").Sortable(true).SetWidth(100);
-    cols.Add(col => col.DateAdded).Titled("Date Added").Sortable(true).SetWidth(250);
-    
-    
-    //cols.Add(col => col.Quote).Titled("Quote").SetWidth(250).RenderValueAs(a => Truncate(a.Quote, 35)).Encoded(false);
-    //cols.Add(col => col.Category).Titled("Category").SetWidth(250).RenderValueAs(a => Truncate(a.Category.Name, 25)).Encoded(false);
-    //cols.Add(col => col.DateAdded).Titled("Date Added").SetWidth(250).RenderValueAs(a => Truncate(a.DateAdded.ToShortDateString(), 35)).Encoded(false);
-    //cols.Add(col => col.Category.Name).SetWidth(350).RenderValueAs(a => Truncate(a.Category.Name, 35)).Encoded(false);
-    //cols.Add(col => col.Price).Sortable(true).SetWidth(80).Format("{0:c}");
-    cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Edit", "Edit", new { id=a.QuotationID }));
-    cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Details", "Details", new { id = a.QuotationID }));
-    cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Delete", "Delete", new { id = a.QuotationID }));
-}
+            {
+                cols.Add(s => s.Author).SetWidth(110).Sortable(true);
+                cols.Add(s => s.Category.Name).Sortable(true).Titled("Category");
+                cols.Add(s => s.Quote);
+                cols.Add(s => s.DateAdded).Sortable(true).Format("{0: dd/MM/yyyy}");
 
-).WithPaging(10)
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Edit", "Edit", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Details", "Details", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Delete", "Delete", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+            }).WithPaging(10)
+
 

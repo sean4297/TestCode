@@ -6,10 +6,11 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Quotation</h4>
         <hr />
@@ -31,28 +32,16 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CategoryID, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("CategoryID", null, "Select a category", htmlAttributes: new { @class = "form-control" })
-                
-                @*@Html.EnumDropDownListFor(model => model.CategoryID, "Please Select A Day", new { @class = "form-control" })*@
-                OR
-                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", placeholder = "Add a new category" } })
-                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                <div>  OR </div>
+                <div> </div>
+                <input name="Name" class="form-control" id="Name" type="text" placeholder="Add a new Category" />
+               
             </div>
         </div>
-        
-        
-        
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.DateAdded, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateAdded, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateAdded, "", new { @class = "text-danger" })
-            </div>*
-        </div>*@
 
-       
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

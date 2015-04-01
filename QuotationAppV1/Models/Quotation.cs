@@ -32,6 +32,8 @@ namespace QuotationAppV1.Models
         public int CategoryID { get; set; }
 
         //[DisplayFormat(DataFormatString="{0:MM/DD/YYYY}")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "(0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateAdded { get; set; }
 
 
