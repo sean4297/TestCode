@@ -149,6 +149,7 @@ namespace QuotationAppV1.Controllers
         {
             if (ModelState.IsValid)
             {
+                quotation.DateAdded = DateTime.Now;
                 db.Entry(quotation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

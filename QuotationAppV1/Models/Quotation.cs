@@ -27,8 +27,6 @@ namespace QuotationAppV1.Models
 
         public virtual Category Category { get; set; }
 
-        public string CategoryName { get; set; }
-
         public int CategoryID { get; set; }
 
         //[DisplayFormat(DataFormatString="{0:MM/DD/YYYY}")]
