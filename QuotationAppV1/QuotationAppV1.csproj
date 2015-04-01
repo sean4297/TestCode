@@ -72,6 +72,9 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
+    <Reference Include="MVC Foolproof Validation">
+      <HintPath>..\packages\foolproof.0.9.4517\lib\MVC Foolproof Validation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -262,6 +265,18 @@
     <Compile Include="Migrations\201503130513117_c2.Designer.cs">
       <DependentUpon>201503130513117_c2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503262209486_ChangeProp110.cs" />
+    <Compile Include="Migrations\201503262209486_ChangeProp110.Designer.cs">
+      <DependentUpon>201503262209486_ChangeProp110.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503272131521_c3.cs" />
+    <Compile Include="Migrations\201503272131521_c3.Designer.cs">
+      <DependentUpon>201503272131521_c3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503280116585_c4.cs" />
+    <Compile Include="Migrations\201503280116585_c4.Designer.cs">
+      <DependentUpon>201503280116585_c4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -298,6 +313,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\mvcfoolproof.unobtrusive.min.js" />
+    <Content Include="Scripts\MvcFoolproofJQueryValidation.min.js" />
+    <Content Include="Scripts\MvcFoolproofValidation.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -402,6 +420,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503130513117_c2.resx">
       <DependentUpon>201503130513117_c2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503262209486_ChangeProp110.resx">
+      <DependentUpon>201503262209486_ChangeProp110.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503272131521_c3.resx">
+      <DependentUpon>201503272131521_c3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503280116585_c4.resx">
+      <DependentUpon>201503280116585_c4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

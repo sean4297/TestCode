@@ -33,10 +33,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CategoryID, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("CategoryID", null, "Select a category", htmlAttributes: new { @class = "form-control" })
+                
+                @*@Html.EnumDropDownListFor(model => model.CategoryID, "Please Select A Day", new { @class = "form-control" })*@
+                OR
+                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", placeholder = "Add a new category" } })
                 @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        
         
         @*<div class="form-group">
             @Html.LabelFor(model => model.DateAdded, htmlAttributes: new { @class = "control-label col-md-2" })

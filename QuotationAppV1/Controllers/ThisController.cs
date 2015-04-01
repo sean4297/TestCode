@@ -15,10 +15,19 @@ namespace QuotationAppV1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: This
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var quotations = db.Quotations.Include(q => q.Category);
-            return View(quotations.ToList());
+            var quotes = from m in db.Quotations
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                quotes = quotes.Where(s => s.Quote.Contains(searchString)
+                                        || s.Author.Contains(searchString)
+                                        || s.Category.Name.Contains(searchString));
+            }
+
+            return View(quotes);
         }
 
         // GET: This/Details/5
@@ -49,11 +58,26 @@ namespace QuotationAppV1.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "QuotationID,Quote,Author,CategoryID,DateAdded")] Quotation quotation)
+        public ActionResult Create([Bind(Include = "QuotationID,Quote,Author,CategoryID,CategoryName,DateAdded")] Quotation quotation)
         {
+
+            //var quotes = from s in db.Quotations
+            //             select s;
+
+            //if (!String.IsNullOrEmpty(quotation.CategoryName))
+            //{
+            //    quotes = quotes.Where(s => s.CategoryName.Contains(quotation.CategoryName)
+            //       );
+            //}
 
             if (ModelState.IsValid)
             {
+
+                if (quotation.CategoryName != null)
+                {
+                    quotation.CategoryID = 0;
+                    db.Categories.Add(new Category { Name = quotation.CategoryName }); 
+                }
                 quotation.DateAdded = DateTime.Now;
                 db.Quotations.Add(quotation);
                 db.SaveChanges();
