@@ -34,6 +34,11 @@ namespace QuotationAppV1.Models
         [DisplayFormat(DataFormatString = "(0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateAdded { get; set; }
 
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public string UserID { get; set; }
+
+
 
     }
 }

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using QuotationAppV1.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace QuotationAppV1.Controllers
 {
@@ -14,8 +16,14 @@ namespace QuotationAppV1.Controllers
     {
 
         public static bool switch1 = false;
-
+        public static bool switch2 = false;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private UserManager<ApplicationUser> manager;
+
+
+        public ThisController(){
+            manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+        }
 
         // GET: This
         //public ActionResult Index(string searchString)
@@ -43,19 +51,59 @@ namespace QuotationAppV1.Controllers
         public ActionResult Index(string searchString)
         {
             ViewBag.switch1 = false;
+            ViewBag.switch2 = false;
+
+            if (manager.FindById(User.Identity.GetUserId()) != null)
+            {
+                ViewBag.switch2 = true;
+            }
 
            
             var quotations = db.Quotations.Include(q => q.Category);
 
             var quote = from q in db.Quotations
                         select q;
+
+            var user = manager.FindById(User.Identity.GetUserId());
+
+            //quote = quote.Where(s => s.ApplicationUser.ToString() == userid);
+
             if (!String.IsNullOrEmpty(searchString))
             {
-                quote = quote.Where(s => s.Author.Contains(searchString) || s.Category.Name.Contains(searchString) || s.Quote.Contains(searchString));
+                quote = quote.Where(s => s.Author.Contains(searchString) || s.Category.Name.Contains(searchString) || s.Quote.Contains(searchString) || s.ApplicationUser.UserName.Equals(user.UserName));
                 ViewBag.switch1 = true;
             }
 
             return View(quote.ToList());
+        }
+
+        public ActionResult MyQuotes()
+        {
+            ViewBag.switch1 = false;
+            ViewBag.switch2 = false;
+
+            if (manager.FindById(User.Identity.GetUserId()) != null)
+            {
+                ViewBag.switch2 = true;
+                
+            }
+
+            var quotations = db.Quotations.Include(q => q.Category);
+            var quote = from q in db.Quotations
+                        select q;
+
+            //var user = manager.FindById(User.Identity.GetUserId());
+            var user = User.Identity.GetUserId();
+
+            quote = quote.Where(s => s.UserID == user);
+
+
+            if (quote != null)
+            {
+                //ViewBag.switch1 = true;
+                return View(quote.ToList());
+            }
+            return View();
         }
 
         // GET: This/Details/5
@@ -87,7 +135,7 @@ namespace QuotationAppV1.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Create([Bind(Include = "QuotationID,CategoryID,Quote,Author,DateAdded")] Quotation quotation, String Name)
+        public ActionResult Create([Bind(Include = "QuotationID,CategoryID,Quote,Author,DateAdded, UserID")] Quotation quotation, String Name)
         {
             Category c1 = new Category();
             //s.Category.Name.Contains(searchString)
@@ -114,6 +162,8 @@ namespace QuotationAppV1.Controllers
 
             if (ModelState.IsValid)
             {
+                //var user = manager.FindById(User.Identity.GetUserId());
+                quotation.UserID = User.Identity.GetUserId(); 
                 quotation.DateAdded = DateTime.Now;
                 db.Quotations.Add(quotation);
                 db.SaveChanges();

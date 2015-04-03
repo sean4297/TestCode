@@ -293,6 +293,14 @@
     <Compile Include="Migrations\201504011644441_c8.Designer.cs">
       <DependentUpon>201504011644441_c8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504012117044_c9.cs" />
+    <Compile Include="Migrations\201504012117044_c9.Designer.cs">
+      <DependentUpon>201504012117044_c9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504030035158_c10.cs" />
+    <Compile Include="Migrations\201504030035158_c10.Designer.cs">
+      <DependentUpon>201504030035158_c10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -322,6 +330,7 @@
     <None Include="Properties\PublishProfiles\QuotationApp2Test.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationAppV1-SeanONeill.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationV1-SeanONeill.pubxml" />
+    <None Include="Properties\PublishProfiles\QuotationV2-a.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
@@ -382,6 +391,7 @@
     <Content Include="Views\This\Index.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\This\MyQuotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -462,6 +472,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504011644441_c8.resx">
       <DependentUpon>201504011644441_c8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504012117044_c9.resx">
+      <DependentUpon>201504012117044_c9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504030035158_c10.resx">
+      <DependentUpon>201504030035158_c10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

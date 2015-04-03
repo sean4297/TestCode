@@ -2,8 +2,10 @@
 @using GridMvc.Html
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "MyQuotes";
 }
+
+<h2>MyQuotes</h2>
 
 
 <p></p>
@@ -13,7 +15,7 @@
     if (ViewBag.switch2)
     {
         @Html.ActionLink("Add New Quote", "Create", null, new { @class = "btn btn-success btn-md" })
-        @Html.ActionLink("Show My Quotes", "MyQuotes", null, new { @class = "btn btn-success btn-md" })
+        @Html.ActionLink("Show All", "Index", null, new { @class = "btn btn-success btn-md" })
         <p></p>
     }
     else
@@ -25,11 +27,12 @@
 
 @using (Html.BeginForm())
 {
-    
-        <input type="submit" value="Search" class="btn btn-success btn-xs" /> @Html.TextBox("searchString") 
-        if(ViewBag.switch1){ 
-            @Html.ActionLink("Clear", "Index", null, new { @class = "btn btn-success btn-xs" })
-        }
+
+    <input type="submit" value="Search" class="btn btn-success btn-xs" /> @Html.TextBox("searchString")
+    if (ViewBag.switch1)
+    {
+        @Html.ActionLink("Clear", "Index", null, new { @class = "btn btn-success btn-xs" })
+    }
 
 }
 
@@ -40,9 +43,9 @@
                 cols.Add(s => s.Quote);
                 cols.Add(s => s.DateAdded).Sortable(true).Format("{0: dd/MM/yyyy}");
 
-                //cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Edit", "Edit", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Edit", "Edit", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
                 cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Details", "Details", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
-                //cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Delete", "Delete", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Delete", "Delete", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
             }).WithPaging(10)
 
 
