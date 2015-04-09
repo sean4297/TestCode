@@ -30,7 +30,10 @@
         if(ViewBag.switch1){ 
             @Html.ActionLink("Clear", "Index", null, new { @class = "btn btn-success btn-xs" })
         }
-
+        if(ViewBag.switch3)
+        {
+            @Html.ActionLink("Unhide", "Unhide", null, new { @class = "btn btn-danger btn-xs" })
+        }
 }
 
 @Html.Grid(Model).Columns(cols =>
@@ -43,6 +46,7 @@
                 //cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Edit", "Edit", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
                 cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Details", "Details", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
                 //cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Delete", "Delete", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Hide", "HideQuotes", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
             }).WithPaging(10)
 
 

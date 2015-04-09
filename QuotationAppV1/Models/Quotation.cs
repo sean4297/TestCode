@@ -38,7 +38,7 @@ namespace QuotationAppV1.Models
 
         public string UserID { get; set; }
 
-
+        public bool hide { get; set; }
 
     }
 }
