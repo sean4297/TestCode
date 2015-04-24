@@ -10,11 +10,16 @@
 
 @using (Html.BeginForm())
 {
-    if (ViewBag.switch2)
+    if (ViewBag.switch2 && !ViewBag.switch4)
     {
         @Html.ActionLink("Add New Quote", "Create", null, new { @class = "btn btn-success btn-md" })
-        @Html.ActionLink("Show My Quotes", "MyQuotes", null, new { @class = "btn btn-success btn-md" })
+        @Html.ActionLink("Show My Quotes", "MyQuotes", null, new { @class = "btn btn-info btn-md" })
         <p></p>
+    }
+    if (ViewBag.switch2 && ViewBag.switch4)
+    {
+        @Html.ActionLink("Add New Quote", "Create", null, new { @class = "btn btn-success btn-md" })
+        @Html.ActionLink("Show All", "Index", null, new { @class = "btn btn-info btn-md" })
     }
     else
     {
@@ -44,10 +49,10 @@
                 cols.Add(s => s.Quote);
                 cols.Add(s => s.DateAdded).Sortable(true).Format("{0: dd/MM/yyyy}");
 
-                //cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Edit", "Edit", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Edit", "Edit", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
                 cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Details", "Details", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
-                //cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Delete", "Delete", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
-                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Hide", "HideQuotes", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Delete", "Delete", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                //cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Hide", "HideQuotes", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
             }).WithPaging(10)
 
 

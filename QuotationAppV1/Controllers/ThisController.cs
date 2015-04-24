@@ -9,11 +9,17 @@ using System.Web.Mvc;
 using QuotationAppV1.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace QuotationAppV1.Controllers
 {
     public class ThisController : Controller
     {
+
+        //: Switch1 shows the Clear Button
+        //: Switch2 shows the Add Quote / My Quote Button
+        //: Switch3 shows the Hide button
 
         public static bool switch1 = false;
         public static bool switch2 = false;
@@ -21,32 +27,14 @@ namespace QuotationAppV1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserManager<ApplicationUser> manager;
 
+        //private static Uri baseUrl = new Uri("http://localhost:53365/");
+
+        
+
 
         public ThisController(){
             manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
         }
-
-        // GET: This
-        //public ActionResult Index(string searchString)
-        //{
-        //    var quotes = from m in db.Quotations
-        //                 select m;
-
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        quotes = quotes.Where(s => s.Quote.Contains(searchString)
-        //                                || s.Author.Contains(searchString)
-        //                                || s.Category.Name.Contains(searchString));
-        //    }
-
-        //    return View(quotes);
-        //}
-
-        //public ActionResult Index()
-        //{
-        //    var quotations = db.Quotations.Include(q => q.Category);
-        //    return View(quotations.ToList());
-        //}
 
         // GET: Quotations
         public ActionResult Index(string searchString, int? id)
@@ -55,12 +43,66 @@ namespace QuotationAppV1.Controllers
             ViewBag.switch2 = false;
             ViewBag.switch3 = false;
 
+            ViewBag.Quote = "t";
+
+            // New Information for Lab 2.3
+
+            //HttpClient client = new HttpClient();
+
+
+            
+
+            //// prepare request
+            //client.BaseAddress = baseUri;
+            ////client.BaseAddress = new Uri("http://localhost:53365/");
+            //client.DefaultRequestHeaders.Accept.Clear();
+            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            //// send request & get response
+            //HttpResponseMessage response = client.GetAsync("GetDayQuote").Result;
+            ////HttpResponseMessage response = client.GetAsync("GetQuote").Result;
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    //var data
+            //    var data = response.Content.ReadAsAsync<Quotation>().Result;
+            //    String foo = data.Quote;
+            //    String s = "Hello";
+            //    ViewBag.Quote = s;
+
+
+            //    //return View(data);
+            //}
+
+
+            var baseUri = new Uri("http://localhost:53365/");
+            HttpClient client = new HttpClient();
+            client.BaseAddress = baseUri;
+
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync("GetDayQuote").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                ViewBag.Quote = "Hello";
+                Quotation data = response.Content.ReadAsAsync<Quotation>().Result;
+                string dayQuote = data.Quote + " by " + data.Author;
+                ViewBag.DayQuote = dayQuote;
+            }
+
+
+
+
+
+
+
+
+
             if (manager.FindById(User.Identity.GetUserId()) != null)
             {
                 ViewBag.switch2 = true;
             }
 
-           
             var quotations = db.Quotations.Include(q => q.Category);
 
             var quote = from q in db.Quotations
@@ -72,17 +114,9 @@ namespace QuotationAppV1.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                quote = quote.Where(s => s.Author.Contains(searchString) || s.Category.Name.Contains(searchString) || s.Quote.Contains(searchString));
-                
-                
+                quote = quote.Where(s => s.Author.Contains(searchString) || s.Category.Name.Contains(searchString) || s.Quote.Contains(searchString));        
                 ViewBag.switch1 = true;
             }
-
-
-
-
-
-
 
             //Cookie 
 
@@ -94,19 +128,8 @@ namespace QuotationAppV1.Controllers
             //// Add the cookie.
             //Response.Cookies.Add(c);
 
-
-
-
-            
-            
-            
-
-
-
             HttpCookie c = Request.Cookies.Get("mycookie");
             //Quotation quotation = db.Quotations.Find(id);
-
-
 
             if (c != null)
             {
@@ -114,37 +137,44 @@ namespace QuotationAppV1.Controllers
                 string val = c.Value;
                 var filterList = val.Split(',').Select(n => int.Parse(n));
 
-
-
-
-                ////var user = manager.FindById(User.Identity.GetUserId());
-                //var user = User.Identity.GetUserId();
                 var check = filterList.ToList();
 
                 //quote = quote.Where(s => s.QuotationID != filterList.);
                 quote = quote.Where(n => !filterList.Select(n1 => n1).Contains(n.QuotationID));
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //if (id != null)
-            //{
-            //    Quotation quotation = db.Quotations.Find(id);
-            //    quote = quote.Where(s => s.QuotationID != quotation.QuotationID);
-            //}
-
             return View(quote.ToList());
+        }
+
+        public ActionResult RandomQuote()
+        {
+            // New Information for Lab 2.3
+
+            var client = new HttpClient();
+
+            // prepare request
+            //client.BaseAddress = baseUrl;
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            // send request & get response
+            HttpResponseMessage response = client.GetAsync("api/quotations").Result;
+            //HttpResponseMessage response = client.GetAsync("GetQuote").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                //var data
+                var data = response.Content.ReadAsAsync<Quotation>().Result;
+                String foo = data.Quote;
+                ViewBag.Quote = foo;
+
+                //Console.WriteLine("{0}\t${1}\t{2}", q.Author, q.DateAdded, q.Quote);
+
+
+                return View(data);
+            }
+
+            return View();
+            // End of Lab 2.3 Code
         }
 
         public ActionResult MyQuotes()
@@ -152,6 +182,7 @@ namespace QuotationAppV1.Controllers
             ViewBag.switch1 = false;
             ViewBag.switch2 = false;
             ViewBag.switch3 = false;
+            ViewBag.switch4 = false;
 
             if (manager.FindById(User.Identity.GetUserId()) != null)
             {
@@ -171,7 +202,7 @@ namespace QuotationAppV1.Controllers
 
             if (quote != null)
             {
-                //ViewBag.switch1 = true;
+                ViewBag.switch4 = true;
                 return View(quote.ToList());
             }
             return View();
