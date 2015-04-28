@@ -26,7 +26,7 @@ namespace QuotationAppV1.Controllers
         public static bool switch3 = false;
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserManager<ApplicationUser> manager;
-
+        private static ViewModel randQuote;
         //private static Uri baseUrl = new Uri("http://localhost:53365/");
 
         
@@ -80,14 +80,19 @@ namespace QuotationAppV1.Controllers
 
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync("GetDayQuote").Result;
+            HttpResponseMessage response = client.GetAsync("randomQuote").Result;
 
             if (response.IsSuccessStatusCode)
             {
-                ViewBag.Quote = "Hello";
-                Quotation data = response.Content.ReadAsAsync<Quotation>().Result;
-                string dayQuote = data.Quote + " by " + data.Author;
-                ViewBag.DayQuote = dayQuote;
+                //ViewBag.Quote = "Hello";
+                //Quotation data = response.Content.ReadAsAsync<Quotation>().Result;
+                //ViewBag.Quote = data.Quote;
+
+                randQuote = response.Content.ReadAsAsync<ViewModel>().Result;
+                ViewBag.Quote = randQuote.Quote + " - " + randQuote.Author;
+
+                //string dayQuote = data.Quote + " by " + data.Author;
+                //ViewBag.DayQuote = dayQuote;
             }
 
 

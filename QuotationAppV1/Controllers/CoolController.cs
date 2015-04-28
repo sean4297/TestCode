@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using QuotationAppV1.Models;
 
+
 namespace QuotationAppV1.Controllers
 {
     //[RoutePrefix("api/Cool")]
@@ -45,20 +46,13 @@ namespace QuotationAppV1.Controllers
             var number = db.Quotations.Count();
 
             Random rnd = new Random();
-
             int day = rnd.Next(number);
-
             IHttpActionResult daily = GetQuotation(day);
-
             if (daily == null)
             {
-
                 day = rnd.Next(number);
-
                 daily = GetQuotation(day);
-
             }
-
             return daily;
         }
 
@@ -158,5 +152,40 @@ namespace QuotationAppV1.Controllers
         {
             return db.Quotations.Count(e => e.QuotationID == id) > 0;
         }
+
+
+        [Route("randomQuote")]
+        [ResponseType(typeof(ViewModel))]
+        [HttpGet]
+        public IHttpActionResult randomQuote()
+        {
+
+            Random randomNumber = new Random();
+            //int TotalRows = db.Quotations.Count();
+
+            var q = db.Quotations.ToArray();
+            int i = q.Count();
+            Quotation thisQuote = q[randomNumber.Next(1, i)];
+
+            //while (thisQuote == null)
+            //{
+            //    thisQuote = db.Quotations.Find(randomNumber.Next(1, TotalRows));
+            //}
+
+            ViewModel UseQuote = new ViewModel();
+            UseQuote.Author = thisQuote.Author;
+            UseQuote.Category = thisQuote.Category.Name;
+            UseQuote.Quote = thisQuote.Quote;
+
+            return Ok(UseQuote);
+
+            //Quotation thisQuote = db.Quotations.Find(33);
+
+            //return Ok(thisQuote);
+        }
+
+
     }
 }
+
+        
