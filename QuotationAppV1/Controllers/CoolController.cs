@@ -177,6 +177,8 @@ namespace QuotationAppV1.Controllers
             UseQuote.Category = thisQuote.Category.Name;
             UseQuote.Quote = thisQuote.Quote;
 
+
+
             return Ok(UseQuote);
 
             //Quotation thisQuote = db.Quotations.Find(33);

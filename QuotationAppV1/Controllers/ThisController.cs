@@ -27,9 +27,6 @@ namespace QuotationAppV1.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserManager<ApplicationUser> manager;
         private static ViewModel randQuote;
-        //private static Uri baseUrl = new Uri("http://localhost:53365/");
-
-        
 
 
         public ThisController(){
@@ -45,36 +42,9 @@ namespace QuotationAppV1.Controllers
 
             ViewBag.Quote = "t";
 
-            // New Information for Lab 2.3
 
-            //HttpClient client = new HttpClient();
-
-
-            
-
-            //// prepare request
-            //client.BaseAddress = baseUri;
-            ////client.BaseAddress = new Uri("http://localhost:53365/");
-            //client.DefaultRequestHeaders.Accept.Clear();
-            //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //// send request & get response
-            //HttpResponseMessage response = client.GetAsync("GetDayQuote").Result;
-            ////HttpResponseMessage response = client.GetAsync("GetQuote").Result;
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    //var data
-            //    var data = response.Content.ReadAsAsync<Quotation>().Result;
-            //    String foo = data.Quote;
-            //    String s = "Hello";
-            //    ViewBag.Quote = s;
-
-
-            //    //return View(data);
-            //}
-
-
-            var baseUri = new Uri("http://localhost:53365/");
+            //var baseUri = new Uri("http://localhost:53365/");
+            var baseUri = new Uri("http://quotation2-seanoneill.azurewebsites.net/");
             HttpClient client = new HttpClient();
             client.BaseAddress = baseUri;
 
@@ -84,15 +54,28 @@ namespace QuotationAppV1.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                //ViewBag.Quote = "Hello";
-                //Quotation data = response.Content.ReadAsAsync<Quotation>().Result;
-                //ViewBag.Quote = data.Quote;
 
-                randQuote = response.Content.ReadAsAsync<ViewModel>().Result;
-                ViewBag.Quote = randQuote.Quote + " - " + randQuote.Author;
+                HttpCookie e = Request.Cookies.Get("newcookie");
 
-                //string dayQuote = data.Quote + " by " + data.Author;
-                //ViewBag.DayQuote = dayQuote;
+                if (e == null)
+                {
+                    e = new HttpCookie("newcookie");
+                    randQuote = response.Content.ReadAsAsync<ViewModel>().Result;
+                    e.Value = randQuote.Quote + " - " + randQuote.Author;
+                    ViewBag.Quote = randQuote.Quote + " - " + randQuote.Author;
+                    Response.Cookies.Add(e);
+                }
+                else if (e != null)
+                {
+                    ViewBag.Quote = e.Value;
+                }
+
+
+                
+                
+                
+                
+                
             }
 
 
@@ -151,36 +134,6 @@ namespace QuotationAppV1.Controllers
             return View(quote.ToList());
         }
 
-        public ActionResult RandomQuote()
-        {
-            // New Information for Lab 2.3
-
-            var client = new HttpClient();
-
-            // prepare request
-            //client.BaseAddress = baseUrl;
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            // send request & get response
-            HttpResponseMessage response = client.GetAsync("api/quotations").Result;
-            //HttpResponseMessage response = client.GetAsync("GetQuote").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                //var data
-                var data = response.Content.ReadAsAsync<Quotation>().Result;
-                String foo = data.Quote;
-                ViewBag.Quote = foo;
-
-                //Console.WriteLine("{0}\t${1}\t{2}", q.Author, q.DateAdded, q.Quote);
-
-
-                return View(data);
-            }
-
-            return View();
-            // End of Lab 2.3 Code
-        }
 
         public ActionResult MyQuotes()
         {
