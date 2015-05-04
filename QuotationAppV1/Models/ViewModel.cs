@@ -12,5 +12,12 @@ namespace QuotationAppV1.Models
         public string Author { get; set; }
         public string Category { get; set; }
 
+        public int CategoryCount { get; set; }
+        public int AuthorCount { get; set; }
+
+        public List<ViewModel> stuff = new List<ViewModel>();
+
+        
+
     }
 }

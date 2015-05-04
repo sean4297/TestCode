@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.Security;
 
 namespace QuotationAppV1.Controllers
 {
@@ -80,6 +81,7 @@ namespace QuotationAppV1.Controllers
 
 
 
+            
 
 
 
@@ -105,7 +107,6 @@ namespace QuotationAppV1.Controllers
                 quote = quote.Where(s => s.Author.Contains(searchString) || s.Category.Name.Contains(searchString) || s.Quote.Contains(searchString));        
                 ViewBag.switch1 = true;
             }
-
             //Cookie 
 
             //HttpCookie c = new HttpCookie("c");
@@ -289,6 +290,41 @@ namespace QuotationAppV1.Controllers
                 //var user = manager.FindById(User.Identity.GetUserId());
                 quotation.UserID = User.Identity.GetUserId(); 
                 quotation.DateAdded = DateTime.Now;
+                quotation.userEmail = User.Identity.GetUserName();
+
+
+
+
+
+                //Report Monologue
+
+                //var quotations = db.Quotations.Include(q => q.Category);
+                //var quote = from q in db.Quotations
+                //            select q;
+                
+
+                //var hello = db.Categories;
+                //var hello2 = from q2 in db.Categories
+                //             select q2;
+
+                
+
+                ////var user = manager.FindById(User.Identity.GetUserId());
+                //var user = User.Identity.GetUserId();
+
+                //quote = quote.Where(s => s.UserID == user);
+
+                //var quotes = quote.ToArray();
+                //var userCategories = db.Categories.ToArray();
+
+                //for (int i = 0; i < userCategories.Length; i++){
+                //    quotation.v.stuff.Add(userCategories[i]);
+                //}
+
+                
+
+
+
                 db.Quotations.Add(quotation);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<QuotationAppV1.Models.Quotation>
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Index";
+}
+<h3>Quotation Base: User Dash.</h3>
+<div class="jumbotron">
+    <p>@ViewBag.Quote</p>
+</div>
+<p></p>
+<div class="jumbotron">
+    @Html.ActionLink("To Data Dash", "dashboard", "admin", routeValues: null, htmlAttributes: new { @class = "btn btn-info btn-s" })
+    
+    @*<h3>@ViewBag.CategoryCount</h3>
+    <h3>@ViewBag.QuoteCount</h3>*@
+    
+
+    @Html.Grid(Model).Columns(cols =>
+            {
+                cols.Add(s => s.userEmail).Sortable(true).Titled("Active Users");
+                cols.Add(s => s.Category.Name).Sortable(true).Titled("Categories");
+                cols.Add(s => s.Quote).Titled("Quotes");
+                cols.Add(s => s.DateAdded).Sortable(true).Format("{0: dd/MM/yyyy}");
+            }).WithPaging(10)
+
+</div>
+@*<p></p>
+@ViewBag.Quote
+<p></p>*@
+
+@using (Html.BeginForm())
+{
+    if (ViewBag.switch2)
+    {
+        @*@Html.ActionLink("Add New Quote", "Create", null, new { @class = "btn btn-success btn-md" })
+        @Html.ActionLink("Show My Quotes", "MyQuotes", null, new { @class = "btn btn-info btn-md" })*@
+        
+        <p></p>
+    }
+    else
+    {
+        <h4>Login to Add Quotes</h4>
+    }
+
+}
+
+@using (Html.BeginForm())
+{
+    
+        <input type="submit" value="Search" class="btn btn-success btn-xs" /> @Html.TextBox("searchString") 
+        if(ViewBag.switch1){ 
+            @Html.ActionLink("Clear", "Index", null, new { @class = "btn btn-success btn-xs" })
+        }
+        if(ViewBag.switch3)
+        {
+            @Html.ActionLink("Unhide", "Unhide", null, new { @class = "btn btn-danger btn-xs" })
+        }
+}
+
+@Html.Grid(Model).Columns(cols =>
+            {
+                cols.Add(s => s.Author).SetWidth(110).Sortable(true);
+                cols.Add(s => s.Category.Name).Sortable(true).Titled("Category");
+                cols.Add(s => s.Quote);
+                cols.Add(s => s.DateAdded).Sortable(true).Format("{0: dd/MM/yyyy}");
+
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Edit", "Edit", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Details", "Details", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Delete", "Delete", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+                cols.Add().Encoded(false).Sanitized(false).RenderValueAs(a => @Html.ActionLink("Hide", "HideQuotes", new { id = a.QuotationID }, new { @class = "btn btn-primary btn-xs" }));
+            }).WithPaging(10)
+
+

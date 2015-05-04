@@ -36,6 +36,7 @@ namespace QuotationAppV1.Migrations
                 context.SaveChanges();
             }
 
+
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<QuotationAppV1.Models.ViewModel>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Dashboard";
+}
+<h3>Quotation Base: Data Dash.</h3>
+<p></p>
+<div class="jumbotron">
+
+    @Html.ActionLink("To User Dash", "index", "admin", routeValues: null, htmlAttributes: new { @class = "btn btn-success btn-s" })
+
+    <h3>@ViewBag.CategoryCount</h3>
+    <h3>@ViewBag.QuoteCount</h3>
+    <h3>@ViewBag.New1</h3>
+
+    @Html.Grid(Model).Columns(cols =>
+            {
+                cols.Add(s => s.Category).Sortable(true).Titled("Total Categories");
+                cols.Add(s => s.CategoryCount).Sortable(true).Titled("Quotes by Category");
+                //cols.Add(s => s.DateAdded).Sortable(true).Format("{0: dd/MM/yyyy}");
+            }).WithPaging(10)
+
+   
+
+    @*<table>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Category</td>
+                    <td>@item.CategoryCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+</div>

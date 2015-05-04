@@ -4,4 +4,8 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<p>Quotation Base strives to find the best quotes ever said.</p>
+<p>For a short time, Quotation Base is highering new Administrators.</p>
+<p>Simply click the link, register, and gain access to more powerful site features!</p>
+
+@Html.ActionLink("Admin Registration", "Register2", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" , @class = "btn btn-success btn-s"})
+@Html.ActionLink("Admin View", "index", "admin", routeValues: null, htmlAttributes: new { @class = "btn btn-info btn-s" })

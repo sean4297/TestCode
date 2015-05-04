@@ -40,5 +40,13 @@ namespace QuotationAppV1.Models
 
         public bool hide { get; set; }
 
+        public string userEmail { get; set; }
+
+        public int totalQuotes { get; set; }
+
+        public virtual ViewModel v { get; set; }
+
+        //public int CategoryCount { get; set; }
+        //public int AuthorCount { get; set; }
     }
 }
