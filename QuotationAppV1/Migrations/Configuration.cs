@@ -1,5 +1,7 @@
 namespace QuotationAppV1.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using QuotationAppV1.Models;
     using System;
     using System.Data.Entity;
@@ -36,7 +38,28 @@ namespace QuotationAppV1.Migrations
                 context.SaveChanges();
             }
 
+            //if (!context.Roles.Any(r => r.Name == "admin"))
+            //{
+            //    var store = new RoleStore<IdentityRole>(context);
+            //    var manager = new RoleManager<IdentityRole>(store);
+            //    var role = new IdentityRole { Name = "admin" };
 
+            //    manager.Create(role);
+            //}
+
+            //if (!context.Users.Any(u => u.UserName == "founder"))
+            //{
+            //    var store = new UserStore<ApplicationUser>(context);
+            //    var manager = new UserManager<ApplicationUser>(store);
+            //    var user = new ApplicationUser { UserName = "founder" };
+
+            //    manager.Create(user, "ChangeItAsap!");
+            //    manager.AddToRole(user.Id, "admin");
+            //}
+
+            //context.Configuration.LazyLoadingEnabled = true;
+
+            //context.SaveChanges();
         }
     }
 }

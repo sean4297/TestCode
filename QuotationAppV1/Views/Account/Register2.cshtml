@@ -1,11 +1,11 @@
 ﻿@model QuotationAppV1.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Admin Registration";
+    ViewBag.Title = "Register2";
 }
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("Admin Registration", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register2", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>

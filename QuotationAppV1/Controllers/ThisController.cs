@@ -41,11 +41,11 @@ namespace QuotationAppV1.Controllers
             ViewBag.switch2 = false;
             ViewBag.switch3 = false;
 
-            ViewBag.Quote = "t";
+            //ViewBag.Quote = "t";
 
 
             //var baseUri = new Uri("http://localhost:53365/");
-            var baseUri = new Uri("http://quotation2-seanoneill.azurewebsites.net/");
+            var baseUri = new Uri("http://quotationapp-seanoneill.azurewebsites.net/");
             HttpClient client = new HttpClient();
             client.BaseAddress = baseUri;
 

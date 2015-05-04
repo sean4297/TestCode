@@ -44,7 +44,6 @@ namespace QuotationAppV1.Models
 
         public int totalQuotes { get; set; }
 
-        public virtual ViewModel v { get; set; }
 
         //public int CategoryCount { get; set; }
         //public int AuthorCount { get; set; }

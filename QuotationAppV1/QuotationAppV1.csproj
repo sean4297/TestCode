@@ -382,6 +382,38 @@
     <Compile Include="Migrations\201505041909590_c23.Designer.cs">
       <DependentUpon>201505041909590_c23.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505042045375_c24.cs" />
+    <Compile Include="Migrations\201505042045375_c24.Designer.cs">
+      <DependentUpon>201505042045375_c24.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505042127365_c25.cs" />
+    <Compile Include="Migrations\201505042127365_c25.Designer.cs">
+      <DependentUpon>201505042127365_c25.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505042136590_c26.cs" />
+    <Compile Include="Migrations\201505042136590_c26.Designer.cs">
+      <DependentUpon>201505042136590_c26.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505042152024_c27.cs" />
+    <Compile Include="Migrations\201505042152024_c27.Designer.cs">
+      <DependentUpon>201505042152024_c27.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505042225331_c28.cs" />
+    <Compile Include="Migrations\201505042225331_c28.Designer.cs">
+      <DependentUpon>201505042225331_c28.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505042228098_c29.cs" />
+    <Compile Include="Migrations\201505042228098_c29.Designer.cs">
+      <DependentUpon>201505042228098_c29.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505042238175_c30.cs" />
+    <Compile Include="Migrations\201505042238175_c30.Designer.cs">
+      <DependentUpon>201505042238175_c30.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505042255599_c31.cs" />
+    <Compile Include="Migrations\201505042255599_c31.Designer.cs">
+      <DependentUpon>201505042255599_c31.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -405,14 +437,19 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="Grid.mvc.readme" />
+    <None Include="Properties\PublishProfiles\Quotation2-seanoneill %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Quotation2-seanoneill.pubxml" />
+    <None Include="Properties\PublishProfiles\quotationapp-seanoneill %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\quotationapp-seanoneill.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationApp2-SeanOneill %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationApp2-SeanONeill %283%29.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationApp2-SeanOneill.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationApp2Test.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationAppV1-SeanONeill.pubxml" />
+    <None Include="Properties\PublishProfiles\QuotationV1-SeanONeill %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationV1-SeanONeill.pubxml" />
     <None Include="Properties\PublishProfiles\QuotationV2-a.pubxml" />
+    <None Include="Properties\PublishProfiles\quotationv2-seanoneill.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\gridmvc.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
@@ -609,6 +646,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505041909590_c23.resx">
       <DependentUpon>201505041909590_c23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505042045375_c24.resx">
+      <DependentUpon>201505042045375_c24.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505042127365_c25.resx">
+      <DependentUpon>201505042127365_c25.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505042136590_c26.resx">
+      <DependentUpon>201505042136590_c26.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505042152024_c27.resx">
+      <DependentUpon>201505042152024_c27.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505042225331_c28.resx">
+      <DependentUpon>201505042225331_c28.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505042228098_c29.resx">
+      <DependentUpon>201505042228098_c29.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505042238175_c30.resx">
+      <DependentUpon>201505042238175_c30.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505042255599_c31.resx">
+      <DependentUpon>201505042255599_c31.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
